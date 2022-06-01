@@ -1,0 +1,47 @@
+mode: 'rule' 
+allow-lan: true
+unified-delay: false
+bind-address: "*"
+log-level: silent
+ipv6: false
+geodata-mode: false
+external-controller: 0.0.0.0:9090
+external-ui: dashboard
+tcp-concurrent: false
+secret: ""
+tun:
+  enable: true
+  stack: system
+  dns-hijack: ['any:53', 'tcp://any:53']
+  auto-route: true
+  auto-detect-interface: true
+dns:
+  enable: true
+  ipv6: false
+  default-nameserver:
+    - '8.8.8.8'
+    - '1.1.1.1'
+  listen: 0.0.0.0:1053
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  nameserver: ['tls://1dot1dot1dot1.cloudflare-dns.com', 'https://dns.cloudflare.com/dns-query']
+  use-hosts: true
+  fake-ip-filter: ['+.networktest.twilio.com', '+.twilio.com', 'connect.rom.miui.com']
+  fallback: []
+  fallback-filter: {geoip: false, geoip-code: 'ID', geosite: ['GFW', 'GREATFIRE'], domain: ["+.youtube.com", "+.githubusercontent.com", "+.googlevideo.com"], ipcidr: []}
+sniffer:
+  enable: false
+  sniffing:
+    - tls
+    - http
+  force-domain: ['+']
+  skip-domain: []
+  port-whitelist: ['80', '443', '8000-9000']
+iptables: {enable: false, inbound-interface: "", bypass: []}
+interface-name: ""
+enable-process: false
+hosts:
+  'note.microsoft.com': 104.18.210.56
+  'maps.google.com': 104.18.10.39
+profile: {store-selected: true, store-fake-ip: false}
+tproxy-port: 9898

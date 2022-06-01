@@ -1,0 +1,29 @@
+proxies:
+proxy-groups:
+  - name: "CLASH"
+    type: select
+    use:
+      - YOUR
+  - name: "ADS"
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+proxy-providers:
+  YOUR:
+    type: file
+    path: ./confs/Clash.yaml
+    health-check:
+      enable: true
+      url: 'http://cp.cloudflare.com/generate_204'
+      interval: 1200
+rule-providers:
+  ALL-ADS:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/reject.txt"
+    path: ./confs/ruleset/all-ads.yaml
+    interval: 86400 
+rules:
+  - RULE-SET,ALL-ADS,ADS
+  - MATCH,CLASH
